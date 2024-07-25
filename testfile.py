@@ -1,5 +1,4 @@
 import os
-import string
 
 # 先删除文件尾的空行
 def removefilenull(drectory, suffix):
