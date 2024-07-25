@@ -1,25 +1,39 @@
 import os
-def testfile(drectory,suffix):
-    for root,dirs,files in os.walk(drectory):
-        for file in files:
-            if file.endswith(suffix):
-                print(os.path.join(root,file))
+import string
 
+# 先删除文件尾的空行
+def removefilenull(drectory, suffix):
+    print('-------- Remove empty lines ----- start ---')
+    for root, dirs, files in os.walk(drectory):
+        for filename in files:
+            if filename.endswith(suffix):
+                with open(root + '/' + filename, 'r') as file:
+                    lines = file.readlines()
+                while lines and lines[-1].strip() == '':
+                    lines.pop()
+                with open(root + '/' + filename, 'w') as file:
+                    file.writelines(lines)
+                    print(os.path.join(root, filename))
+    print('-------- Remove empty lines ----- end ----')
+    print()
 
-
-
-    # def contains_string_in_large_file(file_path, search_string):
-    #     with open(file_path, 'r') as file:
-    #         for line in file:
-    #             if search_string in line:
-    #                 return True
-    #     return False
-    #
-    # # 使用示例
-    # file_path = 'large_example.txt'  # 大文件路径
-    # search_string = 'text to search'  # 要搜索的字符串
-    #
-    # if contains_string_in_large_file(file_path, search_string):
-    #     print(f"'{search_string}' found in the file.")
-    # else:
-    #     print(f"'{search_string}' not found in the file.")
+def findendwithq(drectory,suffix):
+    content = 'q'
+    print('-------- add quit to .info file ----- start ---')
+    for root, dirs, files in os.walk(drectory):
+        for filename in files:
+            if filename.endswith(suffix):
+                with open(root + '/' + filename, 'r') as file:
+                    filecontent=file.readlines()
+                    endcontent = filecontent[-1].strip()
+                    if endcontent.startswith(content) == False:
+                        print(os.path.join(root, filename))
+                        with open(root + '/' +filename, 'a') as file:
+                            file.writelines('q,q,')
+    print('-------- add quit to info file ------ end ----')
+    print()
+def dealwithfile():
+    dirpath = 'CJDB/basecase'
+    suffix = '.info'
+    removefilenull(dirpath, suffix)
+    findendwithq(dirpath,suffix)
