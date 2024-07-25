@@ -16,6 +16,7 @@ def removefilenull(drectory, suffix):
     print('-------- Remove empty lines ----- end ----')
     print()
 
+#再向文件最后一行追加quit
 def findendwithq(drectory,suffix):
     content = 'q'
     print('-------- add quit to .info file ----- start ---')
