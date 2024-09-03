@@ -13,11 +13,13 @@ def get_and_bind_freeport(*args):
 
 def funt():
     from multiprocessing.pool import Pool
-    jobs = 200
+    jobs = 10
     p = Pool(jobs)
     ports = p.map(get_and_bind_freeport, range(jobs))
     print(f'[ports]: {ports}')
-    #assert len(ports) == len(set(ports))
+    print(len(ports))
+    print(len(set(ports)))
+    assert len(ports) == len(set(ports))
     p.close()
 
 if __name__ == '__main__':
